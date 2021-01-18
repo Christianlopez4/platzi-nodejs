@@ -6,7 +6,8 @@ const router = express.Router();
 const controller = require('./controller');
 
 router.get('/', (req, res) => {
-    controller.getMessages()
+    const filter = req.query.user || null;
+    controller.getMessages(filter)
     .then( (data) => {
         response.success(req, res, data, 200);
     })

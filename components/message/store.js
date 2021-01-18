@@ -6,8 +6,12 @@ async function addMessage(message) {
     await msg.save();
 }
 
-async function getMessages() {
-    return await Model.find();
+async function getMessages(filter) {
+    let filterUser = {};
+    if (filter != null) {
+        filterUser = {user: filter};
+    }
+    return await Model.find(filterUser);
 }
 
 async function updateMessage(id, message) {
