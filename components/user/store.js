@@ -5,8 +5,8 @@ async function addUser(user) {
     return await userToCreate.save();
 }
 
-function getUsers() {
-
+async function getUsers() {
+    return await userModel.find();
 }
 
 function updateUser() {
