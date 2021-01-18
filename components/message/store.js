@@ -1,16 +1,21 @@
 //Lógica de almacenamiento
 const Model = require('./model');
 
-function addMessage(message) {
+async function addMessage(message) {
     let msg = new Model(message);
-    msg.save();
+    await msg.save();
 }
 
 async function getMessages() {
     return await Model.find();
 }
 
+async function updateMessage(id, message) {
+    return await Model.findByIdAndUpdate(id, {message});
+}
+
 module.exports = {
     list: getMessages,
-    add: addMessage
+    add: addMessage,
+    update: updateMessage
 }

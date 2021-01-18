@@ -26,7 +26,18 @@ function getMessages() {
     });
 }
 
+function updateMessage(id, message) {
+    return new Promise( (resolve, reject) => {
+        if (!id || !message) {
+            reject('Datos ingresados no válidos');
+        } else {
+            resolve(store.update(id, message));
+        }
+    })
+}
+
 module.exports = {
     getMessages,
-    addMessage
+    addMessage,
+    updateMessage
 }
