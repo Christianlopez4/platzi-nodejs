@@ -18,8 +18,15 @@ async function updateMessage(id, message) {
     return await Model.findByIdAndUpdate(id, {message});
 }
 
+async function deleteMessage(id) {
+    return await Model.deleteOne({
+        _id: id
+    })
+}
+
 module.exports = {
     list: getMessages,
     add: addMessage,
-    update: updateMessage
+    update: updateMessage,
+    delete: deleteMessage
 }
