@@ -1,12 +1,13 @@
 //Lógica de almacenamiento
-const list = [];
+const Model = require('./model');
 
 function addMessage(message) {
-    list.push(message);
+    let msg = new Model(message);
+    msg.save();
 }
 
-function getMessages() {
-    return list;
+async function getMessages() {
+    return await Model.find();
 }
 
 module.exports = {

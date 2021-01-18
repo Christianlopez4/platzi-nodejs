@@ -23,7 +23,7 @@ function addMessage(user, message) {
 function getMessages() {
     return new Promise( (resolve, reject) => {
         resolve(store.list());
-    })
+    });
 }
 
 module.exports = {
