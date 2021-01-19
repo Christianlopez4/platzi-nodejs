@@ -1,9 +1,16 @@
 //Encargada de recibir la petición HTTP, procesarla y enviarla al controlador
 const express = require('express');
+//1. agrego multer: Módulo para transmisión y gestión de archivos
+const multer = require('multer');
 const response = require('../../network/response');
 const router = express.Router();
 
 const controller = require('./controller');
+
+//2. preparamos multer para subir los archivos donde nos interesa
+const upload = multer({
+    dest: 'public/files/',
+})
 
 router.get('/', (req, res) => {
     const filter = req.query.user || null;
@@ -15,9 +22,9 @@ router.get('/', (req, res) => {
             response.error(req, res, 'Unexpected error', 500, err);
         })
 });
-
-router.post('/', (req, res) => {
-    controller.addMessage(req.body.chat, req.body.user, req.body.message)
+//Añado a la funcion addmessage el file (req.file)
+router.post('/', upload.single('file'), (req, res) => {
+    controller.addMessage(req.body.chat, req.body.user, req.body.message, req.file)
         .then( (data) => {
             response.success(req, res, data);
         })

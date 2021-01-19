@@ -1,16 +1,22 @@
 //Archivo con la lógica de negocio
 const store = require('./store');
 
-function addMessage(chat, user, message) {
+function addMessage(chat, user, message, file) {
     return new Promise( (resolve, reject) => {
         if(!chat || !user || !message) {
             reject('Los datos ingresados no son correctos');
         } else {
+            let fileURL = '';
+            if (file) {
+                fileURL = `http://localhost:3000/app/files/${file.filename}`;
+            }
+
             const fullMessage = {
                 chat,
                 user,
                 message,
-                date: new Date()
+                date: new Date(),
+                file: fileURL
             }
             
             store.add(fullMessage);
