@@ -2,13 +2,14 @@ const express = require('express');
 const app = express(); 
 const server = require('http').Server(app);
 const cors = require('cors');
+const config = require('./config');
 
 const socket = require('./socket');
 const router = require('./network/routes');
 const bodyParser = require('body-parser');
 const db = require('./config/mongoose');
 
-const url = '';
+const url = config.dbURL;
 
 var corsOptions = {
     origin: '*',
@@ -22,6 +23,6 @@ app.use('/app', express.static('public'));
 router(app);
 socket.connect(server);
 
-server.listen(3000, () => {
-    console.log('La aplicación está escuchando por en http://localhost:3000');
+server.listen(config.port, () => {
+    console.log(`La aplicación está escuchando por ${config.host}:${config.port}`);
 });
