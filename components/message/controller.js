@@ -1,19 +1,19 @@
 //Archivo con la lógica de negocio
 const store = require('./store');
 
-function addMessage(user, message) {
+function addMessage(chat, user, message) {
     return new Promise( (resolve, reject) => {
-        if(!user || !message) {
+        if(!chat || !user || !message) {
             reject('Los datos ingresados no son correctos');
         } else {
             const fullMessage = {
-                user: user,
-                message: message,
+                chat,
+                user,
+                message,
                 date: new Date()
             }
             
             store.add(fullMessage);
-
             resolve(fullMessage);
         }
     });
