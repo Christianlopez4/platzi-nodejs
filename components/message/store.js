@@ -7,11 +7,23 @@ async function addMessage(message) {
 }
 
 async function getMessages(filter) {
-    let filterUser = {};
-    if (filter != null) {
-        filterUser = {user: filter};
-    }
-    return await Model.find(filterUser);
+    return new Promise( (resolve, reject) => {
+        let filterUser = {};
+        if (filter != null) {
+            filterUser = {user: filter};
+        }
+        //Esto se hace para la presentación de la info. Le estamos diciendo que vuelque la información de los usuarios por como lo establecimos en el modelo (user)
+        Model.find(filterUser)
+            .populate('user')
+            .exec((err, populated) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(populated);
+                }
+            });
+    })
+
 }
 
 async function updateMessage(id, message) {
