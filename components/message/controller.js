@@ -1,5 +1,6 @@
 //Archivo con la lógica de negocio
 const store = require('./store');
+const socket = require('../../socket').socket;
 
 function addMessage(chat, user, message, file) {
     return new Promise( (resolve, reject) => {
@@ -20,6 +21,9 @@ function addMessage(chat, user, message, file) {
             }
             
             store.add(fullMessage);
+
+            socket.io.emit('message', fullMessage);
+
             resolve(fullMessage);
         }
     });
